@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template
+import pymongo, os
 
 app = Flask(__name__)
+client = pymongo.MongoClient(os.environ['URI'])
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
