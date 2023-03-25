@@ -1,7 +1,6 @@
 import flask, pymongo
 from flask import render_template, request
-import os
-from dotenv import load_dotenv
+from os import environ as env
 
 app = flask.Flask(__name__)
 
@@ -11,7 +10,7 @@ def index():
     if request.method == 'GET':
         return render_template("index.html")
 
-    client = pymongo.MongoClient(os.getenv('URI'))
+    client = pymongo.MongoClient(env['URI'])
     db = client.get_database("books")
     coll = db.get_collection("book")
     Title = request.form['Title']
@@ -32,7 +31,7 @@ def index():
 @app.route("/view")
 def view(): 
 
-    client = pymongo.MongoClient(os.getenv('URI'))
+    client = pymongo.MongoClient(env['URI'])
     db = client.get_database("books")
     coll = db.get_collection("book")
     cur = coll.find()
